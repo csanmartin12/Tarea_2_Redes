@@ -57,11 +57,19 @@ Arquitectura (red bridge `rtmpnet`, 172.28.0.0/24):
 
 
 ## Capturas de pantalla
-_(agregar las imágenes en `informe/` y enlazarlas aquí)_
+Arranque de los contenedores y log del servidor:
+![docker compose ps y logs de NMS](./informe/captura_compose.png)
 
-<!-- Ejemplo:
-![VLC reproduciendo el flujo](./informe/captura_vlc.png)
--->
+Inicio de la sesión de publicación en Wireshark (filtro `rtmpt`):
+![Wireshark: handshake y comandos](./informe/captura_wireshark_lista.png)
+
+Comando `connect('live')` desplegado:
+![Wireshark: connect](./informe/captura_connect.png)
+
+Carga útil TCP por segundo en cada sentido:
+![Throughput](./informe/throughput.png)
+
+<!-- Pendiente: agregar captura de VLC (informe/captura_vlc.png) y del panel /admin (informe/captura_admin.png) -->
 
 
 ## Instalación
@@ -127,7 +135,7 @@ sudo chown -R $USER:$USER captures
 wireshark captures/rtmp_docker.pcap
 ```
 
-> **Importante para Wireshark:** Node-Media-Server usa un _chunk size_ de 65535 bytes y el disector RTMP trae `max_packet_size = 32768`, por lo que la mayoría de los paquetes aparece como *Malformed*. Para corregirlo: *Edit → Preferences → Protocols → RTMPT → Maximum packet size* = `2000000` (en tshark: `-o rtmpt.max_packet_size:2000000`). Filtro de visualización: `rtmpt`.
+> **Importante para Wireshark:** el filtro de visualización es `rtmpt` (con t); `rtmp` es otro protocolo (AppleTalk) y no muestra nada. En Wireshark 4.2 o anterior, además, hay que subir *Edit → Preferences → Protocols → RTMPT → Maximum packet size* a `2000000`, porque Node-Media-Server usa un _chunk size_ de 65535 bytes y el disector descarta mensajes mayores a 32768 (aparecen como *Malformed*). En la versión 4.6 esa opción ya no existe ni hace falta.
 
 Estructura del repositorio:
 ```

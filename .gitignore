@@ -1,6 +1,7 @@
 # Capturas temporales y logs locales
 captures/nativo/
 *.log
+!captures/nms.log
 # Videos grandes (el video de la entrega va como enlace en el README)
 *.mkv
 *.mov
