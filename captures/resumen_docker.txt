@@ -1,0 +1,133 @@
+== Versión
+TShark (Wireshark) 4.6.4.
+== Conversaciones TCP
+================================================================================
+TCP Conversations
+Filter:<No Filter>
+                                                           |       <-      | |       ->      | |     Total     |    Relative    |   Duration   |
+                                                           | Frames  Bytes | | Frames  Bytes | | Frames  Bytes |      Start     |              |
+172.28.0.20:56514          <-> 172.28.0.10:1935             13159 872 kB      15982 14 MB       29141 15 MB         0.000000000       179.1569
+172.28.0.30:40932          <-> 172.28.0.10:1935              9775 11 MB        9258 616 kB      19033 12 MB        36.172162000       196.1913
+172.28.0.30:47328          <-> 172.28.0.10:1935                15 4,665 bytes      15 4,433 bytes      30 9,098 bytes   242.158346000         0.2059
+================================================================================
+== Mensajes RTMP de control (sin audio/video)
+4	0.001416000	172.28.0.20	56514	172.28.0.10	1935	1603	Handshake C0+C1
+6	0.027388000	172.28.0.10	1935	172.28.0.20	56514	3139	Handshake S0+S1+S2
+8	0.027462000	172.28.0.20	56514	172.28.0.10	1935	1602	Handshake C2
+12	0.066079000	172.28.0.20	56514	172.28.0.10	1935	200	connect('live')
+14	0.067446000	172.28.0.10	1935	172.28.0.20	56514	82	Window Acknowledgement Size 5000000
+16	0.107044000	172.28.0.10	1935	172.28.0.20	56514	301	Set Peer Bandwidth 5000000,Dynamic|Set Chunk Size 65535|_result('NetConnection.Connect.Success')
+20	0.148007000	172.28.0.20	56514	172.28.0.10	1935	181	Set Chunk Size 65535|releaseStream('test')|FCPublish('test')|createStream()
+22	0.148751000	172.28.0.10	1935	172.28.0.20	56514	107	_result()
+25	0.189034000	172.28.0.20	56514	172.28.0.10	1935	100	publish('test')
+27	0.189722000	172.28.0.10	1935	172.28.0.20	56514	195	onStatus('NetStream.Publish.Start')
+30	0.647210000	172.28.0.20	56514	172.28.0.10	1935	4410	@setDataFrame()|Video Data|Audio Data
+5826	36.172224000	172.28.0.30	40932	172.28.0.10	1935	1603	Handshake C0+C1
+5828	36.173180000	172.28.0.10	1935	172.28.0.30	40932	3139	Handshake S0+S1+S2
+5830	36.174028000	172.28.0.30	40932	172.28.0.10	1935	1602	Handshake C2
+5834	36.215042000	172.28.0.30	40932	172.28.0.10	1935	257	connect('live')
+5836	36.215440000	172.28.0.10	1935	172.28.0.30	40932	82	Window Acknowledgement Size 5000000
+5838	36.258099000	172.28.0.10	1935	172.28.0.30	40932	301	Set Peer Bandwidth 5000000,Dynamic|Set Chunk Size 65535|_result('NetConnection.Connect.Success')
+5842	36.300131000	172.28.0.30	40932	172.28.0.10	1935	103	Window Acknowledgement Size 5000000|createStream()
+5844	36.300529000	172.28.0.10	1935	172.28.0.30	40932	107	_result()
+5847	36.343393000	172.28.0.30	40932	172.28.0.10	1935	164	getStreamLength()|play('test')|Set Buffer Length 1,3000ms
+5849	36.344739000	172.28.0.10	1935	172.28.0.30	40932	84	Stream Begin 1
+5850	36.345371000	172.28.0.10	1935	172.28.0.30	40932	7306	onStatus('NetStream.Play.Reset')|onStatus('NetStream.Play.Start')||RtmpSampleAccess()|@setDataFrame()|Audio Data|Video Data
+15348	68.647871000	172.28.0.30	40932	172.28.0.10	1935	70	Acknowledgement 2501012
+25073	101.289283000	172.28.0.30	40932	172.28.0.10	1935	70	Acknowledgement 5003584
+34892	134.243358000	172.28.0.30	40932	172.28.0.10	1935	70	Acknowledgement 7504924
+44513	166.888329000	172.28.0.30	40932	172.28.0.10	1935	70	Acknowledgement 10008138
+48161	179.155641000	172.28.0.20	56514	172.28.0.10	1935	97	FCUnpublish()
+48165	179.155649000	172.28.0.20	56514	172.28.0.10	1935	100	deleteStream()
+48178	242.158425000	172.28.0.30	47328	172.28.0.10	1935	1603	Handshake C0+C1
+48180	242.159389000	172.28.0.10	1935	172.28.0.30	47328	3139	Handshake S0+S1+S2
+48182	242.159441000	172.28.0.30	47328	172.28.0.10	1935	1602	Handshake C2
+48186	242.200226000	172.28.0.30	47328	172.28.0.10	1935	257	connect('live')
+48188	242.200845000	172.28.0.10	1935	172.28.0.30	47328	82	Window Acknowledgement Size 5000000
+48190	242.241303000	172.28.0.10	1935	172.28.0.30	47328	301	Set Peer Bandwidth 5000000,Dynamic|Set Chunk Size 65535|_result('NetConnection.Connect.Success')
+48194	242.282100000	172.28.0.30	47328	172.28.0.10	1935	103	Window Acknowledgement Size 5000000|createStream()
+48196	242.282447000	172.28.0.10	1935	172.28.0.30	47328	107	_result()
+48199	242.323039000	172.28.0.30	47328	172.28.0.10	1935	164	getStreamLength()|play('test')|Set Buffer Length 1,3000ms
+48201	242.323398000	172.28.0.10	1935	172.28.0.30	47328	84	Stream Begin 1
+48203	242.364231000	172.28.0.10	1935	172.28.0.30	47328	350	onStatus('NetStream.Play.Reset')|onStatus('NetStream.Play.Start')||RtmpSampleAccess()
+== Conteo por tipo de mensaje
+  13949 Audio Data
+   8104 Video Data
+      5 Window Acknowledgement Size
+      4 Set Chunk Size
+      4 Acknowledgement
+      3 createStream()
+      3 connect('live')
+      3 _result()
+      3 _result('NetConnection.Connect.Success')
+      3 Set Peer Bandwidth
+      3 Handshake S0+S1+S2
+      3 Handshake C2
+      3 Handshake C0+C1
+      2 play('test')
+      2 onStatus('NetStream.Play.Start')
+      2 onStatus('NetStream.Play.Reset')
+      2 getStreamLength()
+      2 Stream Begin
+      2 Set Buffer Length
+      2 RtmpSampleAccess()
+      2 @setDataFrame()
+      2 
+      1 releaseStream('test')
+      1 publish('test')
+      1 onStatus('NetStream.Publish.Start')
+      1 deleteStream()
+      1 FCUnpublish()
+      1 FCPublish('test')
+== (puerto origen, fmt de cabecera de chunk, type id) -> cantidad
+('1935', '', '') 3
+('1935', '0', '0x01') 3
+('1935', '0', '0x04') 2
+('1935', '0', '0x05') 3
+('1935', '0', '0x06') 3
+('1935', '0', '0x08') 6201
+('1935', '0', '0x09') 3602
+('1935', '0', '0x12') 3
+('1935', '0', '0x14') 11
+('40932', '', '') 2
+('40932', '0', '0x05') 1
+('40932', '0', '0x14') 3
+('40932', '1', '0x03') 1
+('40932', '1', '0x04') 1
+('40932', '1', '0x14') 1
+('40932', '2', '') 3
+('47328', '', '') 2
+('47328', '0', '0x05') 1
+('47328', '0', '0x14') 3
+('47328', '1', '0x04') 1
+('47328', '1', '0x14') 1
+('56514', '', '') 2
+('56514', '0', '0x01') 1
+('56514', '0', '0x08') 2
+('56514', '0', '0x09') 4
+('56514', '0', '0x12') 1
+('56514', '0', '0x14') 2
+('56514', '1', '0x08') 7472
+('56514', '1', '0x09') 4489
+('56514', '1', '0x14') 5
+('56514', '2', '') 60
+('56514', '2', '0x08') 16
+('56514', '2', '0x09') 5
+('56514', '3', '') 75
+('56514', '3', '0x08') 18
+('56514', '3', '0x09') 4
+== Tipos de frame de video (1=keyframe, 2=inter)
+('1935', '1') 74
+('1935', '2') 3528
+('56514', '1') 92
+('56514', '2') 4410
+== Bytes de payload TCP por segundo y sentido (puerto origen)
+1935 0:27kbps 1:0kbps 2:0kbps 3:0kbps 4:0kbps 5:0kbps 6:0kbps 7:0kbps 8:0kbps 9:0kbps 10:0kbps 11:0kbps 12:0kbps 13:0kbps 14:0kbps 15:0kbps 16:0kbps 17:0kbps 18:0kbps 19:0kbps 20:0kbps 21:0kbps 22:0kbps 23:0kbps 24:0kbps 25:0kbps 26:0kbps 27:0kbps 28:0kbps 29:0kbps 30:0kbps 31:0kbps 32:0kbps 33:0kbps 34:0kbps 35:0kbps 36:1353kbps 37:572kbps 38:654kbps 39:572kbps 40:666kbps 41:568kbps 42:622kbps 43:572kbps 44:654kbps 45:572kbps 46:664kbps 47:567kbps 48:622kbps 49:571kbps 50:654kbps 51:572kbps 52:677kbps 53:568kbps 54:631kbps 55:579kbps 56:659kbps 57:574kbps 58:667kbps 59:130kbps 60:1062kbps 61:576kbps 62:661kbps 63:577kbps 64:673kbps 65:572kbps 66:624kbps 67:574kbps 68:657kbps 69:572kbps 70:670kbps 71:571kbps 72:624kbps 73:574kbps 74:654kbps 75:574kbps 76:673kbps 77:571kbps 78:629kbps 79:576kbps 80:661kbps 81:574kbps 82:677kbps 83:568kbps 84:624kbps 85:577kbps 86:659kbps 87:574kbps 88:667kbps 89:569kbps 90:624kbps 91:576kbps 92:661kbps 93:577kbps 94:673kbps 95:572kbps 96:624kbps 97:574kbps 98:658kbps 99:572kbps 100:671kbps 101:571kbps 102:625kbps 103:574kbps 104:660kbps 105:574kbps 106:674kbps 107:571kbps 108:629kbps 109:576kbps 110:661kbps 111:575kbps 112:677kbps 113:568kbps 114:624kbps 115:577kbps 116:659kbps 117:574kbps 118:668kbps 119:569kbps 120:625kbps 121:575kbps 122:662kbps 123:577kbps 124:674kbps 125:572kbps 126:624kbps 127:572kbps 128:658kbps 129:574kbps 130:670kbps 131:569kbps 132:625kbps 133:574kbps 134:660kbps 135:574kbps 136:674kbps 137:572kbps 138:629kbps 139:576kbps 140:661kbps 141:574kbps 142:667kbps 143:570kbps 144:624kbps 145:575kbps 146:663kbps 147:574kbps 148:668kbps 149:570kbps 150:624kbps 151:576kbps 152:662kbps 153:577kbps 154:674kbps 155:572kbps 156:624kbps 157:572kbps 158:658kbps 159:572kbps 160:671kbps 161:571kbps 162:625kbps 163:574kbps 164:660kbps 165:574kbps 166:674kbps 167:572kbps 168:629kbps 169:576kbps 170:661kbps 171:574kbps 172:678kbps 173:570kbps 174:624kbps 175:577kbps 176:659kbps 177:574kbps 178:529kbps 179:0kbps 232:0kbps 242:29kbps
+40932 36:27kbps 37:0kbps 38:0kbps 39:0kbps 40:0kbps 41:0kbps 42:0kbps 43:0kbps 44:0kbps 45:0kbps 46:0kbps 47:0kbps 48:0kbps 49:0kbps 50:0kbps 51:0kbps 52:0kbps 53:0kbps 54:0kbps 55:0kbps 56:0kbps 57:0kbps 58:0kbps 59:0kbps 60:0kbps 61:0kbps 62:0kbps 63:0kbps 64:0kbps 65:0kbps 66:0kbps 67:0kbps 68:0kbps 69:0kbps 70:0kbps 71:0kbps 72:0kbps 73:0kbps 74:0kbps 75:0kbps 76:0kbps 77:0kbps 78:0kbps 79:0kbps 80:0kbps 81:0kbps 82:0kbps 83:0kbps 84:0kbps 85:0kbps 86:0kbps 87:0kbps 88:0kbps 89:0kbps 90:0kbps 91:0kbps 92:0kbps 93:0kbps 94:0kbps 95:0kbps 96:0kbps 97:0kbps 98:0kbps 99:0kbps 100:0kbps 101:0kbps 102:0kbps 103:0kbps 104:0kbps 105:0kbps 106:0kbps 107:0kbps 108:0kbps 109:0kbps 110:0kbps 111:0kbps 112:0kbps 113:0kbps 114:0kbps 115:0kbps 116:0kbps 117:0kbps 118:0kbps 119:0kbps 120:0kbps 121:0kbps 122:0kbps 123:0kbps 124:0kbps 125:0kbps 126:0kbps 127:0kbps 128:0kbps 129:0kbps 130:0kbps 131:0kbps 132:0kbps 133:0kbps 134:0kbps 135:0kbps 136:0kbps 137:0kbps 138:0kbps 139:0kbps 140:0kbps 141:0kbps 142:0kbps 143:0kbps 144:0kbps 145:0kbps 146:0kbps 147:0kbps 148:0kbps 149:0kbps 150:0kbps 151:0kbps 152:0kbps 153:0kbps 154:0kbps 155:0kbps 156:0kbps 157:0kbps 158:0kbps 159:0kbps 160:0kbps 161:0kbps 162:0kbps 163:0kbps 164:0kbps 165:0kbps 166:0kbps 167:0kbps 168:0kbps 169:0kbps 170:0kbps 171:0kbps 172:0kbps 173:0kbps 174:0kbps 175:0kbps 176:0kbps 177:0kbps 178:0kbps 179:0kbps 232:0kbps
+47328 242:27kbps
+56514 0:776kbps 1:451kbps 2:592kbps 3:529kbps 4:653kbps 5:561kbps 6:619kbps 7:569kbps 8:651kbps 9:572kbps 10:662kbps 11:564kbps 12:619kbps 13:570kbps 14:651kbps 15:570kbps 16:661kbps 17:565kbps 18:619kbps 19:569kbps 20:651kbps 21:569kbps 22:662kbps 23:566kbps 24:622kbps 25:569kbps 26:652kbps 27:569kbps 28:662kbps 29:565kbps 30:620kbps 31:569kbps 32:652kbps 33:570kbps 34:662kbps 35:565kbps 36:620kbps 37:569kbps 38:651kbps 39:570kbps 40:664kbps 41:565kbps 42:619kbps 43:577kbps 44:652kbps 45:570kbps 46:662kbps 47:565kbps 48:620kbps 49:569kbps 50:652kbps 51:569kbps 52:662kbps 53:566kbps 54:620kbps 55:572kbps 56:652kbps 57:569kbps 58:662kbps 59:129kbps 60:1056kbps 61:569kbps 62:652kbps 63:570kbps 64:662kbps 65:565kbps 66:620kbps 67:569kbps 68:651kbps 69:570kbps 70:670kbps 71:565kbps 72:620kbps 73:570kbps 74:651kbps 75:570kbps 76:662kbps 77:565kbps 78:620kbps 79:569kbps 80:652kbps 81:570kbps 82:662kbps 83:566kbps 84:620kbps 85:572kbps 86:652kbps 87:569kbps 88:662kbps 89:565kbps 90:620kbps 91:569kbps 92:652kbps 93:570kbps 94:662kbps 95:565kbps 96:620kbps 97:569kbps 98:652kbps 99:569kbps 100:665kbps 101:565kbps 102:620kbps 103:570kbps 104:652kbps 105:570kbps 106:663kbps 107:565kbps 108:620kbps 109:569kbps 110:652kbps 111:570kbps 112:662kbps 113:566kbps 114:620kbps 115:572kbps 116:652kbps 117:569kbps 118:663kbps 119:565kbps 120:620kbps 121:569kbps 122:652kbps 123:570kbps 124:663kbps 125:565kbps 126:620kbps 127:570kbps 128:652kbps 129:569kbps 130:665kbps 131:565kbps 132:620kbps 133:570kbps 134:652kbps 135:570kbps 136:663kbps 137:565kbps 138:620kbps 139:570kbps 140:652kbps 141:570kbps 142:662kbps 143:566kbps 144:620kbps 145:572kbps 146:652kbps 147:570kbps 148:663kbps 149:565kbps 150:620kbps 151:570kbps 152:652kbps 153:570kbps 154:663kbps 155:565kbps 156:620kbps 157:569kbps 158:652kbps 159:570kbps 160:665kbps 161:565kbps 162:620kbps 163:570kbps 164:653kbps 165:570kbps 166:663kbps 167:565kbps 168:620kbps 169:569kbps 170:652kbps 171:569kbps 172:662kbps 173:566kbps 174:620kbps 175:572kbps 176:652kbps 177:569kbps 178:524kbps 179:0kbps
+== Cierre de conexiones (FIN/RST)
+48167	179.155657000	172.28.0.20	56514	172.28.0.10	1935	·······A···F
+48170	179.156894000	172.28.0.10	1935	172.28.0.20	56514	·······A···F
+48172	232.363083000	172.28.0.30	40932	172.28.0.10	1935	·······A···F
+48173	232.363451000	172.28.0.10	1935	172.28.0.30	40932	·······A···F
