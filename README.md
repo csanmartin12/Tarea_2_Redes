@@ -38,12 +38,12 @@ Arquitectura (red bridge `rtmpnet`, 172.28.0.0/24):
 
 
 ## Tecnologías utilizadas
-- Docker Engine 27+ y Docker Compose v2
+- Docker Engine 29.9.3 y Docker Compose v5.7.0
 - Node.js 22 (imagen `node:22-alpine`)
 - Node-Media-Server 4.4.6
 - VLC 3.0 (imagen `debian:bookworm-slim`)
 - tcpdump (imagen `nicolaka/netshoot`)
-- Wireshark / tshark 4.x
+- Wireshark / tshark 4.6.4
 - FFmpeg (solo para generar el video de prueba)
 - Typst (informe)
 
@@ -78,7 +78,7 @@ Panel web de Node-Media-Server con el flujo activo:
 
 ## Instalación
 Requisitos:
-- Ubuntu 22.04 o 24.04 (probado en máquina virtual), con 4 GB de RAM y 2 CPU como mínimo.
+- Ubuntu (probado en Ubuntu 26.04.1 LTS en máquina virtual), con 4 GB de RAM y 2 CPU como mínimo.
 - Docker Engine con el plugin `docker compose`.
 - Wireshark/tshark, git y, opcionalmente, ffmpeg.
 

@@ -193,8 +193,7 @@ $ T_"video" = frac(1, 25 "fps") = 40 "ms", quad T_"audio" = frac(1024, 44100 "Hz
 
 === Entorno
 
-// TODO: completar versiones exactas (lsb_release -d ; docker --version)
-Se trabajó en una máquina virtual con Ubuntu, Docker Engine con el plugin `docker compose` y Wireshark/tshark 4.6.4. Se construyeron dos imágenes propias y se usó una imagen auxiliar para capturar tráfico:
+Se trabajó en una máquina virtual con Ubuntu 26.04.1 LTS, Docker Engine 29.9.3 con Docker Compose v5.7.0 y Wireshark/tshark 4.6.4. Se construyeron dos imágenes propias y se usó una imagen auxiliar para capturar tráfico:
 - *Servidor* (`server/Dockerfile`): imagen `node:22-alpine` sobre la que se instala `node-media-server@4.4.6` con `npm`. Se exponen los puertos 1935 (RTMP) y 8000 (HTTP-FLV, panel web y API).
 - *Cliente* (`vlc/Dockerfile`): imagen `debian:bookworm-slim` con los paquetes `vlc-bin`, `vlc-plugin-base`, `vlc-plugin-video-output` y `vlc-plugin-qt`. Se crea el usuario `vlcuser`, porque VLC se niega a ejecutarse como _root_. La misma imagen se usa como publicador y como reproductor.
 - *Sniffer*: imagen `nicolaka/netshoot`, que incluye `tcpdump`. Se lanza con `network_mode: service:nms`, es decir, comparte la interfaz de red del servidor y ve todo el tráfico que entra o sale de él.
