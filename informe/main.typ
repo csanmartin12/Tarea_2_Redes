@@ -7,7 +7,7 @@
 #title-page(
   informe-nombre: "Protocolo RTMP: Node-Media-Server y VLC",
   informe-num: "Tarea 2",
-  integrantes: "Cristian San Martín, Compañero/a", // TODO: completar pareja
+  integrantes: "Cristian San Martín",
   profesor: "...", // TODO
   ayudantes: "No",
   fecha: "Noviembre de 2026",
@@ -249,7 +249,8 @@ La secuencia de uso fue:
 + levantar servidor y sniffer (@fig-ps);
 + lanzar el publicador (`docker compose up publisher`), que transmite los 180 s del archivo;
 + a los 36 s, abrir el reproductor con ventana (@fig-vlc) y revisar el panel web (@fig-admin);
-+ cerrar VLC cuando terminó la publicación y detener todo con `docker compose down`.
++ cerrar VLC cuando terminó la publicación (t = 232 s) y abrirlo una segunda vez (t = 242 s) para repetir la prueba;
++ detener todo con `docker compose down`.
 
 #figure(kind: image,
   pendiente[ventana de VLC (`player-gui`) reproduciendo `rtmp://nms:1935/live/test` con el patrón de barras de colores (sin la ventana de errores)],
@@ -465,7 +466,7 @@ El publicador, al acabar el archivo, envía `FCUnpublish('test')` y `deleteStrea
 
 El reproductor, en cambio, no recibe ningún aviso de fin de flujo: después de t = 179,156 s simplemente deja de recibir datos y queda esperando. La conexión se cierra recién cuando se cierra la ventana de VLC, con un FIN del reproductor en t = 232,363 s (trama 48172), sin enviar `deleteStream`.
 
-Diez segundos después (t = 242,158 s) VLC abrió una tercera conexión (puerto 47328), probablemente un reintento de la lista de reproducción. El servidor completó el handshake y respondió `NetStream.Play.Start` aunque el flujo `/live/test` ya no existía: Node-Media-Server no informa `NetStream.Play.StreamNotFound`, sino que deja al reproductor suscrito a la espera de que alguien vuelva a publicar. La captura termina en ese punto, al detenerse los contenedores.
+Diez segundos después (t = 242,158 s) se volvió a abrir VLC para repetir la prueba, lo que generó una tercera conexión (puerto 47328). Como la publicación ya había terminado, esta conexión permite observar qué hace el servidor ante un `play` sobre un flujo inexistente: completó el handshake y respondió `NetStream.Play.Start` aunque el flujo `/live/test` ya no existía: Node-Media-Server no informa `NetStream.Play.StreamNotFound`, sino que deja al reproductor suscrito a la espera de que alguien vuelva a publicar. La captura termina en ese punto, al detenerse los contenedores.
 
 == Suposiciones sobre la modificación del tráfico
 
@@ -498,14 +499,14 @@ Durante el desarrollo de la tarea, las principales dificultades fueron:
 
 = Conclusiones
 
-// TODO: revisar y personalizar (fortalezas, debilidades y experiencia propia del grupo)
+// TODO: revisar y personalizar (fortalezas, debilidades y experiencia propia)
 El trabajo permitió observar en una red real cómo RTMP cumple su objetivo de multiplexar audio, video y comandos sobre una única conexión TCP. El tráfico capturado coincidió en lo esencial con lo que describe la especificación de Adobe: un handshake de tamaño fijo (1537 + 3073 + 1536 bytes), una fase de negociación con mensajes de control y comandos AMF0 que dura menos de 200 ms, y luego un flujo periódico de mensajes de audio y video cuya cadencia refleja directamente las propiedades del archivo (25 cuadros de video y unos 43 de audio por segundo, un _keyframe_ cada 2 s).
 
 Las diferencias más interesantes no estaban en la especificación, sino en las implementaciones. Se descubrió que VLC delega toda la lógica RTMP en `libavformat` de FFmpeg, que el servidor y el publicador eligen formatos de cabecera distintos para los mismos datos, que existen comandos "de facto" (`releaseStream`, `FCPublish`, `getStreamLength`) ausentes en la norma, y que Node-Media-Server usa una caché de GOP para que un reproductor nuevo vea imagen en unos 200 ms. También se comprobó que el mecanismo de _acknowledgement_ propio de RTMP se usa sólo a medias: el reproductor acusa recibo cada 2,5 MB, pero el servidor nunca lo hace hacia el publicador, de modo que el control de flujo efectivo recae en TCP. Finalmente, el reproductor no recibe aviso alguno cuando termina la publicación, y el servidor acepta un `play` sobre un flujo inexistente sin reportar error.
 
 El problema con el disector de Wireshark fue la lección más útil: un único parámetro de _framing_ mal interpretado (el tamaño máximo de chunk) basta para que todo el flujo se lea como basura. Esto anticipa que, de los campos que se modificarán en la Tarea 3, los que afectan la delimitación de mensajes (_chunk size_, `fmt`, largo) tendrán efectos mucho más graves que los que sólo alteran el contenido (marcas de tiempo, datos de audio o video).
 
-Como fortaleza destacamos haber automatizado el despliegue con `docker compose` y el análisis con un script de `tshark`, lo que hace la experiencia reproducible. Como debilidad, la principal dificultad fue hacer que VLC publicara por RTMP dentro de un contenedor. Recomendamos a quien repita la experiencia usar el filtro `rtmpt`, revisar la versión de Wireshark (las anteriores a la 4.6 requieren subir `rtmpt.max_packet_size`) y generar un video de prueba propio con parámetros conocidos, para poder contrastar fácilmente lo capturado con lo esperado.
+Como fortaleza destaco haber automatizado el despliegue con `docker compose` y el análisis con un script de `tshark`, lo que hace la experiencia reproducible. Como debilidad, la principal dificultad fue hacer que VLC publicara por RTMP dentro de un contenedor. Recomiendo a quien repita la experiencia usar el filtro `rtmpt`, revisar la versión de Wireshark (las anteriores a la 4.6 requieren subir `rtmpt.max_packet_size`) y generar un video de prueba propio con parámetros conocidos, para poder contrastar fácilmente lo capturado con lo esperado.
 
 = Referencias
 

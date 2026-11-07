@@ -16,7 +16,7 @@
 
 
 ## Información general
-- Trabajo del grupo 14 del curso Taller de Redes y Servicios (UDP, 2026-2). El protocolo asignado es **RTMP** (_Real-Time Messaging Protocol_).
+- Trabajo individual (grupo 14 de la asignación de protocolos) del curso Taller de Redes y Servicios (UDP, 2026-2). El protocolo asignado es **RTMP** (_Real-Time Messaging Protocol_).
 - El objetivo es instalar una dupla servidor–cliente que use RTMP, ponerla a comunicarse y estudiar el tráfico que genera: el handshake, los comandos AMF0, los mensajes de control y el flujo de audio y video.
 - Toda la experiencia corre en contenedores para que se pueda repetir en cualquier equipo con un solo `docker compose`.
 - Este repositorio es la base de la Tarea 3, donde se modificará el tráfico en tránsito y se medirán sus efectos.
@@ -170,4 +170,4 @@ Pendiente (Tarea 3):
 
 
 ## Contacto
-Creado por Cristian San Martín ([@csanmartin12](https://github.com/csanmartin12)) y _(compañero/a)_.
+Creado por Cristian San Martín ([@csanmartin12](https://github.com/csanmartin12)).
