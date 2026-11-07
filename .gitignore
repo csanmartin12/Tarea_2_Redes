@@ -1,0 +1,9 @@
+# Capturas temporales y logs locales
+captures/nativo/
+*.log
+# Videos grandes (el video de la entrega va como enlace en el README)
+*.mkv
+*.mov
+video/
+# PDF de prueba compilado con template provisorio
+informe/*.pdf

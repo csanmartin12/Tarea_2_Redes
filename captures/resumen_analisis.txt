@@ -1,0 +1,97 @@
+== Conversaciones TCP
+================================================================================
+TCP Conversations
+Filter:<No Filter>
+                                                           |       <-      | |       ->      | |     Total     |    Relative    |   Duration   |
+                                                           | Frames  Bytes | | Frames  Bytes | | Frames  Bytes |      Start     |              |
+127.0.0.1:36974            <-> 127.0.0.1:1935                 483 35 kB         485 2195 kB       968 2231 kB       0.000000000        29.1009
+127.0.0.1:36990            <-> 127.0.0.1:1935                 214 1062 kB       218 17 kB         432 1080 kB       4.993398000        13.7779
+================================================================================
+== Mensajes RTMP de control (sin audio/video)
+4	0.003096000	36974	1935	1603	Handshake C0+C1
+6	0.004538000	1935	36974	3139	Handshake S0+S1+S2
+8	0.004572000	36974	1935	1602	Handshake C2
+10	0.048444000	36974	1935	218	connect()
+12	0.050212000	1935	36974	82	Window Acknowledgement Size 5000000
+14	0.092487000	1935	36974	301	Set Peer Bandwidth 5000000,Dynamic|Set Chunk Size 65535|_result()
+18	0.136529000	36974	1935	181	Set Chunk Size 65535|releaseStream()|FCPublish()|createStream()
+20	0.137599000	1935	36974	107	_result()
+23	0.180505000	36974	1935	100	publish()
+25	0.181369000	1935	36974	195	onStatus()
+28	0.600183000	36974	1935	42562	@setDataFrame()|Video Data|Audio Data|Video Data|Video Data|Video Data|Audio Data|Audio Data|Video Data|Audio Data|Audio Data|Video Data|Audio Data|Audio Data|Video Dat
+197	4.993524000	36990	1935	1603	Handshake C0+C1
+199	4.994637000	1935	36990	3139	Handshake S0+S1+S2
+201	4.994747000	36990	1935	1602	Handshake C2
+203	5.036422000	36990	1935	275	connect()
+205	5.036956000	1935	36990	82	Window Acknowledgement Size 5000000
+207	5.080493000	1935	36990	301	Set Peer Bandwidth 5000000,Dynamic|Set Chunk Size 65535|_result()
+219	5.124410000	36990	1935	103	Window Acknowledgement Size 5000000|createStream()
+221	5.125019000	1935	36990	107	_result()
+224	5.168445000	36990	1935	164	getStreamLength()|play()|Set Buffer Length 1,3000ms
+226	5.168990000	1935	36990	84	Stream Begin 1
+228	5.212466000	1935	36990	30927	onStatus()|onStatus()||RtmpSampleAccess()|@setDataFrame()|Audio Data|Video Data|Video Data|Audio Data|Audio Data|Video Data|Audio Data|Audio Data|Video Data|Audio Data
+1397	29.100236000	36974	1935	147	FCUnpublish()|deleteStream()
+== Conteo por tipo de mensaje
+   1881 Audio Data
+   1097 Video Data
+      4 _result()
+      3 onStatus()
+      3 Window Acknowledgement Size
+      3 Set Chunk Size
+      2 createStream()
+      2 connect()
+      2 Set Peer Bandwidth
+      2 Handshake S0+S1+S2
+      2 Handshake C2
+      2 Handshake C0+C1
+      2 @setDataFrame()
+      1 releaseStream()
+      1 publish()
+      1 play()
+      1 getStreamLength()
+      1 deleteStream()
+      1 Stream Begin
+      1 Set Buffer Length
+      1 RtmpSampleAccess()
+      1 FCUnpublish()
+      1 FCPublish()
+      1 
+== (puerto origen, fmt de cabecera de chunk, type id) -> cantidad
+('1935', '', '') 2
+('1935', '0', '0x01') 2
+('1935', '0', '0x04') 1
+('1935', '0', '0x05') 2
+('1935', '0', '0x06') 2
+('1935', '0', '0x08') 594
+('1935', '0', '0x09') 346
+('1935', '0', '0x12') 2
+('1935', '0', '0x14') 7
+('36974', '', '') 2
+('36974', '0', '0x01') 1
+('36974', '0', '0x08') 2
+('36974', '0', '0x09') 4
+('36974', '0', '0x12') 1
+('36974', '0', '0x14') 2
+('36974', '1', '0x08') 1240
+('36974', '1', '0x09') 726
+('36974', '1', '0x14') 5
+('36974', '2', '') 2
+('36974', '2', '0x08') 5
+('36974', '2', '0x09') 10
+('36974', '3', '') 2
+('36974', '3', '0x08') 3
+('36974', '3', '0x09') 11
+('36990', '', '') 2
+('36990', '0', '0x05') 1
+('36990', '0', '0x14') 3
+('36990', '1', '0x04') 1
+('36990', '1', '0x14') 1
+== Tipos de frame de video (1=keyframe, 2=inter)
+('1935', '1') 8
+('1935', '2') 338
+('36974', '1') 17
+('36974', '2') 734
+== Cierre de conexiones (FIN/RST)
+1067	18.771272000	36990	1935	·······A·R··
+1397	29.100236000	36974	1935	·······AP··F
+1399	29.100932000	1935	36974	·······A···F

@@ -1,0 +1,82 @@
+# Tarea 2 - Taller de Redes: protocolo RTMP con Node-Media-Server (servidor) y VLC (cliente)
+#
+#   docker compose up -d --build nms sniffer        # servidor + captura de tráfico
+#   docker compose up publisher                     # VLC publica media/muestra.mp4
+#   docker compose --profile headless up player     # VLC reproduce sin ventana
+#   docker compose --profile gui up player-gui      # VLC reproduce con ventana (Linux / WSLg)
+#   docker compose down                             # detiene todo (la captura queda en ./captures)
+
+services:
+  nms:
+    build: ./server
+    container_name: nms
+    ports:
+      - "1935:1935"   # RTMP
+      - "8000:8000"   # HTTP-FLV / WebAdmin (http://localhost:8000/admin)
+    networks:
+      rtmpnet:
+        ipv4_address: 172.28.0.10
+
+  # tcpdump dentro del espacio de red del servidor: ve todo lo que entra y sale de NMS
+  sniffer:
+    image: nicolaka/netshoot
+    container_name: sniffer
+    network_mode: "service:nms"
+    cap_add: [NET_ADMIN, NET_RAW]
+    volumes:
+      - ./captures:/captures
+    command: ["tcpdump", "-i", "eth0", "-s", "0", "-U", "-Z", "root", "-w", "/captures/rtmp_docker.pcap", "tcp port 1935"]
+    depends_on: [nms]
+
+  # VLC como publicador: remux de MP4 (H.264 + AAC) a FLV sobre RTMP, sin recodificar
+  publisher:
+    build: ./vlc
+    container_name: vlc-publisher
+    volumes:
+      - ./media:/media:ro
+    command:
+      - "-I"
+      - "dummy"
+      - "/media/muestra.mp4"
+      - "--sout"
+      - "#std{access=avio,mux=ffmpeg{mux=flv},dst=rtmp://nms:1935/live/test}"
+      - "vlc://quit"
+    depends_on: [nms]
+    networks:
+      rtmpnet:
+        ipv4_address: 172.28.0.20
+
+  # VLC como reproductor sin interfaz gráfica (útil para capturas reproducibles)
+  player:
+    build: ./vlc
+    container_name: vlc-player
+    profiles: ["headless"]
+    command: ["-I", "dummy", "--vout", "dummy", "--aout", "dummy", "-vv",
+              "--run-time", "12", "rtmp://nms:1935/live/test", "vlc://quit"]
+    depends_on: [nms]
+    networks:
+      rtmpnet:
+        ipv4_address: 172.28.0.30
+
+  # VLC como reproductor con ventana (para el video). Antes, en el host: xhost +local:
+  player-gui:
+    build: ./vlc
+    container_name: vlc-player-gui
+    profiles: ["gui"]
+    entrypoint: ["vlc"]
+    command: ["rtmp://nms:1935/live/test"]
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    depends_on: [nms]
+    networks:
+      rtmpnet:
+        ipv4_address: 172.28.0.30
+
+networks:
+  rtmpnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/24

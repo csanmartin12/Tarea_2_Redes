@@ -1,0 +1,51 @@
+{
+    "bind": "0.0.0.0",
+    "notify": {
+        "url": ""
+    },
+    "store": {
+        "path": "./data",
+        "maxHistory": 10000
+    },
+    "auth": {
+        "play": false,
+        "publish": false,
+        "secret": "8a4c1cd759826927e9d56ca165c270e0",
+        "jwt": {
+            "secret": "085a4a06e72c42412a7772d1773bafdf895d8f8d1afc37b4733e230699d7ff75",
+            "expiresIn": "24h",
+            "refreshExpiresIn": "7d",
+            "algorithm": "HS256",
+            "users": [
+                {
+                    "username": "admin",
+                    "password": "admin",
+                    "role": "admin"
+                }
+            ]
+        }
+    },
+    "rtmp": {
+        "port": 1935
+    },
+    "rtmps": {
+        "port": 1936,
+        "key": "./key.pem",
+        "cert": "./cert.pem"
+    },
+    "http": {
+        "port": 8000
+    },
+    "https": {
+        "port": 8443,
+        "key": "./key.pem",
+        "cert": "./cert.pem"
+    },
+    "webadmin": {
+        "enable": true
+    },
+    "record": {
+        "auto": false,
+        "path": "./record"
+    }
+}
