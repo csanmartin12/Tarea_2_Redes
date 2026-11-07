@@ -248,18 +248,24 @@ docker compose --profile gui up player-gui
 La secuencia de uso fue:
 + levantar servidor y sniffer (@fig-ps);
 + lanzar el publicador (`docker compose up publisher`), que transmite los 180 s del archivo;
-+ a los 36 s, abrir el reproductor con ventana (@fig-vlc) y revisar el panel web (@fig-admin);
++ a los 36 s, abrir el reproductor con ventana;
 + cerrar VLC cuando terminó la publicación (t = 232 s) y abrirlo una segunda vez (t = 242 s) para repetir la prueba;
 + detener todo con `docker compose down`.
 
-#figure(kind: image,
-  pendiente[ventana de VLC (`player-gui`) reproduciendo `rtmp://nms:1935/live/test` con el patrón de barras de colores (sin la ventana de errores)],
-  caption: [VLC reproduciendo el flujo publicado en Node-Media-Server],
+Las capturas de pantalla de VLC y del panel web se tomaron en una repetición del mismo procedimiento, levantando sólo el servidor (sin el sniffer) para no sobrescribir la captura de tráfico analizada en la sección siguiente.
+
+La @fig-vlc muestra el reproductor en el contenedor `vlc-player-gui`: la ventana de VLC, cuyo título indica la URL `rtmp://nms:1935/live/test` y el identificador del contenedor (`on d66b8b51dd5b`), muestra el patrón de barras con el contador de segundos del video de prueba, y detrás se ve la terminal con el log del contenedor. En esta ocasión el audio también se reprodujo, gracias al socket de PulseAudio compartido con la máquina virtual.
+
+#figure(
+  image("captura_vlc.png", width: 100%),
+  caption: [VLC (contenedor `vlc-player-gui`) reproduciendo el flujo publicado en Node-Media-Server],
 ) <fig-vlc>
 
-#figure(kind: image,
-  pendiente[panel web de Node-Media-Server (`http://localhost:8000/admin`) mostrando el flujo `/live/test` activo],
-  caption: [Panel de administración de Node-Media-Server con el flujo activo],
+El panel web de Node-Media-Server (@fig-admin) confirma desde el lado del servidor lo mismo que luego muestra la captura: un flujo en vivo con dos sesiones (_1 publishing · 1 playing_) y un tráfico de red de 0,6 Mbit/s de entrada y 0,6 Mbit/s de salida, coherente con los ≈ 607 kbit/s que sube el publicador y los ≈ 613 kbit/s que el servidor reenvía al reproductor (@tab-conteo). El proceso del servidor usa apenas 0,6 % de CPU y 82,6 MB de memoria, lo que muestra que reenviar un flujo sin recodificarlo es una tarea muy liviana.
+
+#figure(
+  image("captura_admin.png", width: 100%),
+  caption: [Panel de administración de Node-Media-Server (`http://localhost:8000/admin`) con el flujo activo],
 ) <fig-admin>
 
 === Decodificación en Wireshark

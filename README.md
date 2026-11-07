@@ -69,7 +69,11 @@ Comando `connect('live')` desplegado:
 Carga útil TCP por segundo en cada sentido:
 ![Throughput](./informe/throughput.png)
 
-<!-- Pendiente: agregar captura de VLC (informe/captura_vlc.png) y del panel /admin (informe/captura_admin.png) -->
+VLC en contenedor reproduciendo el flujo:
+![VLC reproduciendo rtmp://nms:1935/live/test](./informe/captura_vlc.png)
+
+Panel web de Node-Media-Server con el flujo activo:
+![Panel /admin](./informe/captura_admin.png)
 
 
 ## Instalación
