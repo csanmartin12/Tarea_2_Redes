@@ -58,17 +58,20 @@ services:
       rtmpnet:
         ipv4_address: 172.28.0.30
 
-  # VLC como reproductor con ventana (para el video). Antes, en el host: xhost +local:
+  # VLC como reproductor con ventana y sonido (para el video). Antes, en el host: xhost +local:
+  # El audio sale por el PulseAudio/PipeWire del host (usuario con UID 1000, igual que vlcuser).
   player-gui:
     build: ./vlc
     container_name: vlc-player-gui
     profiles: ["gui"]
     entrypoint: ["vlc"]
-    command: ["rtmp://nms:1935/live/test"]
+    command: ["--aout", "pulse", "rtmp://nms:1935/live/test"]
     environment:
       - DISPLAY=${DISPLAY:-:0}
+      - PULSE_SERVER=unix:/run/user/1000/pulse/native
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${XDG_RUNTIME_DIR:-/run/user/1000}/pulse/native:/run/user/1000/pulse/native
     depends_on: [nms]
     networks:
       rtmpnet:
